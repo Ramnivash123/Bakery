@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Heavenly Bakes - Cake Land</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .cake-card {
+            transition: all 0.3s ease;
+        }
+        
+        .cake-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .rating-card {
+            transition: all 0.3s ease;
+        }
+
+        .rating-card:hover {
+            transform: scale(1.02);
+        }
+
+        .star-rating {
+            color: #F59E0B;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #EC4899;
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
+        }
+
+        .cake-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(236, 72, 153, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gradient-to-b from-gray-50 to-pink-50 text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg backdrop-blur-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center px-6 py-4">
+            <a class="text-pink-600 text-2xl font-bold hover:text-pink-700 transition-colors duration-300" href="#">The Heavenly Bakes - Cake Land</a>
+            <div class="flex space-x-4">
+                <a class="px-4 py-2 text-gray-800 hover:text-pink-600 transition-colors duration-300 rounded-lg hover:bg-pink-50" href="{{ url_for('bookings') }}">Book Cakes</a>
+                <a class="px-4 py-2 text-gray-800 hover:text-pink-600 transition-colors duration-300 rounded-lg hover:bg-pink-50" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="py-16">
+        <div class="container mx-auto px-6">
+            <!-- Section Heading -->
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-pink-600 mb-4">Our Signature Collection</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Discover our handcrafted selection of cakes, made fresh daily with premium ingredients.
+                </p>
+            </div>
+
+            <!-- Cake Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tres Leches Cake -->
+                <div class="cake-card bg-white rounded-2xl overflow-hidden shadow-lg relative">
+                    <img src="static/WhatsApp Image 2025-02-12 at 23.31.49_f17a86ca.jpg" alt="Tres Leches Cake" class="w-full h-64 object-cover">
+                    <span class="featured-badge bg-pink-600 text-white px-4 py-2 rounded-full absolute top-4 left-4">
+                        Tres Leches
+                    </span>
+                </div>
+
+                <!-- Biscof Shots -->
+                <div class="cake-card bg-white rounded-2xl overflow-hidden shadow-lg relative">
+                    <img src="static/biscuit.jpeg" alt="Biscof Shots" class="w-full h-64 object-cover">
+                    <span class="featured-badge bg-pink-600 text-white px-4 py-2 rounded-full absolute top-4 left-4">
+                        Biscof Shots
+                    </span>
+                </div>
+
+                <!-- Cup Cakes -->
+                <div class="cake-card bg-white rounded-2xl overflow-hidden shadow-lg relative">
+                    <img src="static/ice.jpeg" alt="Cup Cakes" class="w-full h-64 object-cover">
+                    <span class="featured-badge bg-pink-600 text-white px-4 py-2 rounded-full absolute top-4 left-4">
+                        Cup Cakes
+                    </span>
+                </div>
+
+                <!-- Oreo Jar -->
+                <div class="cake-card bg-white rounded-2xl overflow-hidden shadow-lg relative">
+                    <img src="static/bf4beac8-9fba-4c29-9f27-5d61a0b11814.jpg" alt="Oreo Jar" class="w-full h-64 object-cover">
+                    <span class="featured-badge bg-pink-600 text-white px-4 py-2 rounded-full absolute top-4 left-4">
+                        Oreo Jar
+                    </span>
+                </div>
+
+                <!-- Brownies -->
+                <div class="cake-card bg-white rounded-2xl overflow-hidden shadow-lg relative">
+                    <img src="static/brownie.jpeg" alt="Brownies" class="w-full h-64 object-cover">
+                    <span class="featured-badge bg-pink-600 text-white px-4 py-2 rounded-full absolute top-4 left-4">
+                        Brownies
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section (Same as before) -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">What Our Customers Say</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Read genuine reviews from our valued customers.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for rating in ratings %}
+                <div class="rating-card bg-gradient-to-br from-pink-50 to-white p-6 rounded-2xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-pink-200 rounded-full flex items-center justify-center text-pink-600 font-bold text-xl">
+                            {{ rating.username[0] }}
+                        </div>
+                        <div class="ml-4">
+                            <h5 class="text-lg font-semibold">{{ rating.fav_item }}</h5>
+                            <div class="star-rating">
+                                {% for _ in range(rating.rating) %}★{% endfor %}
+                                {% for _ in range(5 - rating.rating) %}☆{% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-2">"{{ rating.feedback }}"</p>
+                    <p class="text-sm text-gray-500">- {{ rating.username }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Rating Form (Same as before) -->
+        <div class="container mx-auto px-6 mt-16">
+            <!-- Form content remains the same -->
+            <h2 class="text-4xl font-bold text-center mb-4">Share Your Experience</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">We value your feedback! Let us know what you think about our cakes.</p>
+            
+            <form action="{{ url_for('submit_rating') }}" method="POST" class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Your Favorite Item</label>
+                    <select name="fav_item" class="form-select w-full p-3 border border-gray-300 rounded-lg focus:border-pink-500 focus:ring focus:ring-pink-200 transition-all duration-300">
+                        <option value="" disabled selected>Select your favorite item</option>
+                        <option value="Tres Leches Cake">Tres Leches Cake</option>
+                        <option value="Biscof Shots">Biscof Shots</option>
+                        <option value="Cup Cakes">Cup Cakes</option>
+                        <option value="Oreo Jar">Oreo Jar</option>
+                        <option value="Brownies">Brownies</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Your Rating</label>
+                    <select name="rating" class="form-input w-full p-3 border border-gray-300 rounded-lg focus:border-pink-500 focus:ring focus:ring-pink-200 transition-all duration-300">
+                        <option value="5">★★★★★ Excellent</option>
+                        <option value="4">★★★★☆ Very Good</option>
+                        <option value="3">★★★☆☆ Good</option>
+                        <option value="2">★★☆☆☆ Fair</option>
+                        <option value="1">★☆☆☆☆ Could Be Better</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Your Feedback</label>
+                    <textarea name="feedback" rows="4" class="form-input w-full p-3 border border-gray-300 rounded-lg focus:border-pink-500 focus:ring focus:ring-pink-200 transition-all duration-300" placeholder="Tell us about your experience..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-pink-600 text-white py-3 px-6 rounded-lg hover:bg-pink-700 transition-colors duration-300 font-semibold">
+                    Submit Your Review
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-pink-100 to-pink-200 py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p class="text-gray-600">&copy; 2025 Cakecious Bakery. All Rights Reserved.</p>
+            <p class="text-gray-500 mt-2">Made with ♥ for cake lovers</p>
+        </div>
+    </footer>
+</body>
+</html>

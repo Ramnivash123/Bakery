@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Heavenly Bakes - Cake Land</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .card-transform {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card-transform:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px -12px rgba(236, 72, 153, 0.25);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #FEE2E2 0%, #EC4899 100%);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gradient-to-b from-gray-50 to-pink-50 text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-white/80 backdrop-blur-md py-4 fixed w-full z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <a class="text-pink-600 text-2xl font-bold" href="#">
+                <i class="fas fa-birthday-cake"></i> The Heavenly Bakes - Cake Land
+            </a>
+            <div class="flex space-x-8">
+                <a class="px-4 py-2 text-gray-800 hover:text-pink-600 transition-colors duration-300 rounded-lg hover:bg-pink-50" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    
+
+    <!-- Booking Form Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-8 text-pink-600 text-center">Create a Booking</h2>
+            <form action="{{ url_for('bookings') }}" method="POST" class="max-w-lg mx-auto bg-white p-8 rounded-2xl shadow-lg">
+                <div class="mb-6">
+                    <label for="username" class="block text-gray-700 font-semibold mb-2">Username:</label>
+                    <input type="text" id="username" name="username" value="{{ session['username'] }}" readonly class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                </div>
+                <div class="mb-6">
+                    <label for="item" class="block text-gray-700 font-semibold mb-2">Item:</label>
+                    <select id="item" name="item" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                        <option value="Tres Leches Cake">Tres Leches Cake</option>
+                        <option value="Biscof Shots">Biscof Shots</option>
+                        <option value="Cup Cakes">Cup Cakes</option>
+                        <option value="Oreo Jar">Oreo Jar</option>
+                        <option value="Brownies">Brownies</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label for="quantity" class="block text-gray-700 font-semibold mb-2">Quantity:</label>
+                    <input type="text" id="quantity" name="quantity" placeholder="e.g., Two, Three, Five" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                </div>
+                <div class="mb-6">
+                    <label for="delivery_date" class="block text-gray-700 font-semibold mb-2">Delivery Date:</label>
+                    <input type="date" id="delivery_date" name="delivery_date" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                </div>
+                <div class="mb-6">
+                    <label for="mobile_no" class="block text-gray-700 font-semibold mb-2">Mobile no:</label>
+                    <input type="tel" id="mobile_no" name="mobile_no" value="{{ session.get('mobile_no', '') }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                </div>
+                <div class="mb-6">
+                    <label for="address" class="block text-gray-700 font-semibold mb-2">Address:</label>
+                    <input type="text" id="address" name="address" value="{{ session.get('address', '') }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                </div>
+                <button type="submit" class="w-full bg-pink-600 text-white px-6 py-3 rounded-lg hover:bg-pink-700 transition-colors duration-300">Submit Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Bookings Table Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-8 text-pink-600 text-center">Your Bookings</h2>
+            <div class="overflow-x-auto bg-white rounded-2xl shadow-lg">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="bg-pink-600 text-white">
+                            <th class="px-6 py-3 text-left">ID</th>
+                            <th class="px-6 py-3 text-left">Username</th>
+                            <th class="px-6 py-3 text-left">Item</th>
+                            <th class="px-6 py-3 text-left">Quantity</th>
+                            <th class="px-6 py-3 text-left">Delivery Date</th>
+                            <th class="px-6 py-3 text-left">Booking Date</th>
+                            <th class="px-6 py-3 text-left">Mobile no</th>  
+                            <th class="px-6 py-3 text-left">Address</th>
+                            <th class="px-6 py-3 text-left">Actions</th> <!-- New column for delete button -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr class="border-b border-gray-200 hover:bg-pink-50 transition-colors duration-300">
+                            <td class="px-6 py-4">{{ booking.id }}</td>
+                            <td class="px-6 py-4">{{ booking.username }}</td>
+                            <td class="px-6 py-4">{{ booking.item }}</td>
+                            <td class="px-6 py-4">{{ booking.quantity }}</td>
+                            <td class="px-6 py-4">{{ booking.delivery_date }}</td>
+                            <td class="px-6 py-4">{{ booking.current_date }}</td>
+                            <td class="px-6 py-4">{{ booking.mobile_no }}</td>
+                            <td class="px-6 py-4">{{ booking.address }}</td>
+                            <td class="px-6 py-4">
+                                <!-- Delete button form -->
+                                <form action="{{ url_for('delete_booking', booking_id=booking.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this booking?');">
+                                    <button type="submit" class="text-red-600 hover:text-red-800">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 backdrop-blur-md py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p class="text-gray-600">&copy; 2025 Cakecious Bakery. All Rights Reserved.</p>
+            <div class="mt-4 flex justify-center space-x-6">
+                <a href="#" class="text-pink-600 hover:text-pink-700 transition-colors duration-300">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-pink-600 hover:text-pink-700 transition-colors duration-300">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-pink-600 hover:text-pink-700 transition-colors duration-300">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

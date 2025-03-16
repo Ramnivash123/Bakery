@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Heavenly Bakes - Cake Land</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .card-transform {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card-transform:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px -12px rgba(236, 72, 153, 0.25);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #FEE2E2 0%, #EC4899 100%);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gradient-to-b from-gray-50 to-pink-50 text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-white/80 backdrop-blur-md py-4 fixed w-full z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <a class="text-pink-600 text-2xl font-bold" href="#">
+                <i class="fas fa-birthday-cake"></i> The Heavenly Bakes - Cake Land
+            </a>
+            <div class="flex space-x-8">
+                <a class="text-gray-800 hover:text-pink-600 transition-colors duration-300" href="{{ url_for('index') }}">Home</a>
+                <a class="text-gray-800 hover:text-pink-600 transition-colors duration-300" href="{{ url_for('signup') }}">Sign Up</a>
+                <a class="text-gray-800 hover:text-pink-600 transition-colors duration-300" href="#">About Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-24 hero-gradient text-white overflow-hidden">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl font-bold mb-6 drop-shadow-lg">
+                <span class="block text-pink-200 text-lg mb-2">Welcome to</span>
+                The Heavenly Bakes - Cake Land
+            </h1>
+            <a href="{{ url_for('cakes') }}" class="inline-block bg-white text-pink-600 px-8 py-3 rounded-full shadow-lg hover:bg-pink-50 transition-all duration-300 hover:scale-105 font-semibold">
+                Explore Our Cakes
+            </a>
+        </div>
+    </section>
+
+    <!-- Featured Items Section -->
+    <section class="py-24">
+        <div class="container mx-auto text-center px-4">
+            <h2 class="text-4xl font-bold mb-4 text-pink-600">Our Featured Items</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
+                Discover our handcrafted selection of treats, made fresh daily with premium ingredients.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Cake Card -->
+                <div class="card-transform bg-white rounded-2xl p-8 shadow-lg">
+                    <div class="mb-6">
+                        <i class="fas fa-birthday-cake text-pink-500 text-6xl float-animation"></i>
+                    </div>
+                    <h5 class="text-2xl font-semibold text-gray-800 mb-3">Delicious Cake</h5>
+                    <p class="text-gray-600">Our signature cakes are baked fresh daily, using traditional recipes with a modern twist.</p>
+                </div>
+
+                <!-- Juice Card -->
+                <div class="card-transform bg-white rounded-2xl p-8 shadow-lg">
+                    <div class="mb-6">
+                        <i class="fas fa-glass-martini-alt text-orange-500 text-6xl float-animation"></i>
+                    </div>
+                    <h5 class="text-2xl font-semibold text-gray-800 mb-3">Fresh Juices</h5>
+                    <p class="text-gray-600">Freshly squeezed juices made from seasonal fruits, perfect for any time of day.</p>
+                </div>
+
+                <!-- Treats Card -->
+                <div class="card-transform bg-white rounded-2xl p-8 shadow-lg">
+                    <div class="mb-6">
+                        <i class="fas fa-cookie-bite text-yellow-500 text-6xl float-animation"></i>
+                    </div>
+                    <h5 class="text-2xl font-semibold text-gray-800 mb-3">Tasty Treats</h5>
+                    <p class="text-gray-600">A variety of snacks and treats that perfectly complement our beverages.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 backdrop-blur-md py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p class="text-gray-600">&copy; 2025 Cakecious Bakery. All Rights Reserved.</p>
+            <div class="mt-4 flex justify-center space-x-6">
+                <a href="#" class="text-pink-600 hover:text-pink-700 transition-colors duration-300">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-pink-600 hover:text-pink-700 transition-colors duration-300">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-pink-600 hover:text-pink-700 transition-colors duration-300">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
