@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heavenly Bakes - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Hero Section Background with Image */
+        .hero-section {
+            background: url('/images/bakery_bg.jpg') no-repeat center center/cover;
+            color: rgb(158, 47, 93);
+            padding: 40px 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .highlight-row:hover {
+            background-color: rgba(236, 72, 153, 0.1);
+            transition: background 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-pink-50 text-gray-800">
+
+    <!-- Navbar (Updated Header Section) -->
+    <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-pink-600">The Heavenly Bakes - Admin Dashboard</h1>
+        <span class="text-gray-700 font-semibold">Welcome, <span class="text-pink-600">Admin</span></span>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center text-white py-12">
+        <h2 class="text-4xl font-bold">Manage Orders with Ease</h2>
+        <p class="text-lg mt-2">View all customer cake orders in one place</p>
+    </section>
+
+    <!-- Main Content -->
+    <section class="container mx-auto p-6">
+        <h2 class="text-3xl font-semibold text-pink-600 mb-6">Customer Orders</h2>
+        
+        <!-- Orders Table -->
+        <div class="bg-white shadow-md rounded-lg p-4 overflow-hidden">
+            <div class="table-container">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-pink-500 text-white">
+                            <th class="p-3 text-left">Name</th>
+                            <th class="p-3 text-left">Mobile</th>
+                            <th class="p-3 text-left">Name of the Cake</th>
+                            <th class="p-3 text-left">Quantity</th>
+                            <th class="p-3 text-left">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--  {% for order in customer_orders %} Modify Here -->
+                        <tr class="border-b highlight-row">
+                            <td class="p-3">Kowshik</td>
+                            <td class="p-3">-</td>
+                            <td class="p-3">Cup cake</td>
+                            <td class="p-3">6</td>
+                            <td class="p-3">19-03-2025</td>
+                        </tr>
+                        <!-- {% endfor %}-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center bg-gradient-to-r from-pink-100 to-pink-200 py-4 mt-8">
+        <p class="text-gray-600">© 2025 Heavenly Bakes. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
